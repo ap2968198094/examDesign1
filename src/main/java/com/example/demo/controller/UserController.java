@@ -74,7 +74,7 @@ public class UserController {
     public String active(@PathVariable("code") String code){
         Boolean flag = userService.active(code);
         if (flag){
-            return "激活成功，请<a href='localhost/register_ok.html'>登录</a>";
+            return "激活成功，请<a href='http://localhost:8181/login.html'>登录</a>";
         }
         return "激活失败";
     }

@@ -15,7 +15,7 @@ public class ResultVoUtil {
     public static ResultVo error(String error){
         ResultVo resultVo = new ResultVo();
         resultVo.setCode(1);
-        resultVo.setMsg(error);
+        resultVo.setMsg("error");
         resultVo.setData(null);
         return resultVo;
     }
