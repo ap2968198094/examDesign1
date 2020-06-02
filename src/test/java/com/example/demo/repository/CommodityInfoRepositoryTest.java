@@ -12,7 +12,8 @@ class CommodityInfoRepositoryTest {
 
     @Test
     void find(){
-        System.out.println(repository.findAll());
+        System.out.println(5/3);
+
     }
 
 }
