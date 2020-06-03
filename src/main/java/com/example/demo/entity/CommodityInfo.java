@@ -15,9 +15,9 @@ public class CommodityInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commodityId;
     private String commodityName;
-    private BigDecimal commodityPrice;
+    private String commodityPrice;
     private String commodityDescription;
     private Integer commodityStock;//库存
     private String commodityIcon;
-    private Integer commodityType;
+    private Integer commodityCategory;
 }

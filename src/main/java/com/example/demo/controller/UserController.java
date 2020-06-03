@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
@@ -27,7 +28,11 @@ public class UserController {
     public ResultVo registe(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
         //1.获取数据
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("CHECKCODE_SERVER"));
+
         Map<String, String[]> map = request.getParameterMap();
+        System.out.println(request.getParameter("check"));
 
         //2.封装对象
         User user = new User();

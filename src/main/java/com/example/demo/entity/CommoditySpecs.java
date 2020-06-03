@@ -17,6 +17,6 @@ public class CommoditySpecs {
     private Integer commodityId;//商品id
     private String specsName;//规格名称
     private Integer specsStock;//剩余库存
-    private BigDecimal specsPrice;//规格价格
+    private String specsPrice;//规格价格
     private String specsIcon;//规格图片
 }
