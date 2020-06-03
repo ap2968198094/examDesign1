@@ -9,6 +9,6 @@ public interface CommodityInfoService {
 
     public List<CommodityInfo> findAll();
 
-    public PageVo findCommodityInfoPages(int currentPage);
+    public PageVo findCommodityInfoPages(int categoryId,int currentPage);
 
 }

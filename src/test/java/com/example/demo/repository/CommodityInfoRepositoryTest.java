@@ -12,7 +12,7 @@ class CommodityInfoRepositoryTest {
 
     @Test
     void find(){
-        System.out.println(repository.findAll());
+        System.out.println(repository.findAllById(2));
 
     }
 

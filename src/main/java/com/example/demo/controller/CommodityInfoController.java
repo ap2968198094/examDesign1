@@ -30,13 +30,20 @@ public class CommodityInfoController {
     @GetMapping("/findPages")
     public ResultVo findCommodityInfoPages(HttpServletRequest request, HttpServletResponse response){
         String currentPageStr = request.getParameter("currentPage");
+        String cidStr = request.getParameter("cid");
         int currentPage = 0;//当前页码
         if (currentPageStr != null && currentPageStr.length() > 0 ){
             currentPage = Integer.parseInt(currentPageStr);
         } else {
             currentPage = 1;
         }
-        PageVo pageVo = service.findCommodityInfoPages(currentPage);
+        int cid = 0;
+        if (cidStr != null && cidStr.length() > 0) {
+            cid = Integer.parseInt(cidStr);
+        }else {
+            cid = 0;
+        }
+        PageVo pageVo = service.findCommodityInfoPages(cid,currentPage);
         return ResultVoUtil.success(pageVo);
     }
 }
