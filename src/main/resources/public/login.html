@@ -27,12 +27,12 @@
                 //2.发送ajax请求，提交表单数据
 				$.post("user/login",$("#loginForm").serialize(),function (data) {
 					//data : {flag:false,errorMsg:''}
-					if(data.flag){
+					if(data.data == null){
 					    //登录成功
 						location.href="index.html";
 					}else{
 					    //登录失败
-						$("#errorMsg").html(data.errorMsg);
+						$("#errorMsg").html(data.data);
 					}
                 });
             });
@@ -69,7 +69,7 @@
         			<input name="password" type="text" placeholder="请输入密码" autocomplete="off">
         			<div class="verify">
 					<input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
-					<span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
+					<span><img src="checkCode/get" alt="" onclick="changeCheckCode(this)"></span>
 					<script type="text/javascript">
 						//图片点击事件
 						function changeCheckCode(img) {

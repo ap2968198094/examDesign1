@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.CommodityInfo;
 import com.example.demo.service.CommodityInfoService;
 import com.example.demo.util.ResultVoUtil;
 import com.example.demo.vo.PageVo;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @ResponseBody
@@ -45,5 +49,34 @@ public class CommodityInfoController {
         }
         PageVo pageVo = service.findCommodityInfoPages(cid,currentPage);
         return ResultVoUtil.success(pageVo);
+    }
+
+    @GetMapping("/findOne")
+    public ResultVo findOne(HttpServletRequest request){
+        String rid = request.getParameter("rid");
+        return ResultVoUtil.success(service.findById(rid));
+    }
+
+    @GetMapping("/addCart")
+    public ResultVo addCart(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        List<CommodityInfo> cart = null;
+        if (session.getAttribute("cart") != null){
+            cart = (List<CommodityInfo>)session.getAttribute("cart");
+        }else {
+            cart = new ArrayList<>();
+        }
+        String rid = request.getParameter("rid");
+        cart.add(service.findById(rid));
+        session.setAttribute("cart",cart);
+        System.out.println(cart);
+        return ResultVoUtil.success(null);
+
+    }
+
+    @GetMapping("/findCart")
+    public ResultVo findCart(HttpServletRequest request){
+        List<CommodityInfo> cart = (List<CommodityInfo>)request.getSession().getAttribute("cart");
+        return ResultVoUtil.success(cart);
     }
 }

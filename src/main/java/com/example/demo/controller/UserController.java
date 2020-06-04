@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResultVo login(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
         //1.»ñÈ¡Êý¾Ý
@@ -68,10 +69,11 @@ public class UserController {
         }
         Boolean flag = userService.login(user);
         if (flag){
+            request.getSession().setAttribute("user",userService.findByUsername(user.getUsername()));
             System.out.println("µÇÂ¼³É¹¦");
             return ResultVoUtil.success(null);
         }
-        return ResultVoUtil.error("×¢²áÊ§°Ü");
+        return ResultVoUtil.error("µÇÂ¼Ê§°Ü");
 
     }
 
@@ -82,6 +84,25 @@ public class UserController {
             return "¼¤»î³É¹¦£¬Çë<a href='http://localhost:8181/login.html'>µÇÂ¼</a>";
         }
         return "¼¤»îÊ§°Ü";
+    }
+
+    @GetMapping("/findOne")
+    public ResultVo findOne(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if (user == null){
+            return ResultVoUtil.success(null);
+        }
+        return ResultVoUtil.success(user);
+    }
+
+    @GetMapping("/exit")
+    public ResultVo exit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //1.Ïú»Ùsession
+        request.getSession().invalidate();
+
+        //2.Ìø×ªµÇÂ¼Ò³Ãæ
+        response.sendRedirect(request.getContextPath()+"/login.html");
+        return ResultVoUtil.success(null);
     }
 
 

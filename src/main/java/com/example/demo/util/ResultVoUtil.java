@@ -16,7 +16,7 @@ public class ResultVoUtil {
         ResultVo resultVo = new ResultVo();
         resultVo.setCode(1);
         resultVo.setMsg("error");
-        resultVo.setData(null);
+        resultVo.setData(error);
         return resultVo;
     }
 }
