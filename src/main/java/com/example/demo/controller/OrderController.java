@@ -29,6 +29,7 @@ public class OrderController {
         CommodityOrder order = new CommodityOrder();
         order.setOrderPrice(String.valueOf(s));
         service.save(order);
+        request.getSession().removeAttribute("cart");
         return ResultVoUtil.success(order);
     }
 
