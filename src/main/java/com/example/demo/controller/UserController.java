@@ -25,6 +25,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 注册功能
+     * @param request
+     * @param response
+     * @return
+     */
     @PostMapping("/regist")
     public ResultVo registe(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
@@ -52,6 +58,12 @@ public class UserController {
 
     }
 
+    /**
+     * 用户登录
+     * @param request
+     * @param response
+     * @return
+     */
     @PostMapping("/login")
     public ResultVo login(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
@@ -77,6 +89,11 @@ public class UserController {
 
     }
 
+    /**
+     * 用户激活
+     * @param code
+     * @return
+     */
     @GetMapping("/active/{code}")
     public String active(@PathVariable("code") String code){
         Boolean flag = userService.active(code);
@@ -86,6 +103,11 @@ public class UserController {
         return "激活失败";
     }
 
+    /**
+     * 查找当前登录的用户信息
+     * @param request
+     * @return
+     */
     @GetMapping("/findOne")
     public ResultVo findOne(HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user");
@@ -95,6 +117,13 @@ public class UserController {
         return ResultVoUtil.success(user);
     }
 
+    /**
+     * 用户退出功能
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @GetMapping("/exit")
     public ResultVo exit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //1.销毁session

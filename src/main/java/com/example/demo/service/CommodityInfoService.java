@@ -12,5 +12,7 @@ public interface CommodityInfoService {
     public PageVo findCommodityInfoPages(int categoryId,int currentPage);
 
     public CommodityInfo findById(String cid);
+
+    public List<CommodityInfo> findByCommodityNameLike(String name);
 }
 

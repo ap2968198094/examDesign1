@@ -16,6 +16,10 @@ public class CommoditySpecsController {
     @Autowired
     private CommoditySpecsService commoditySpecsService;
 
+    /**
+     * 查找商品所有规格
+     * @return
+     */
     @GetMapping("/findAll")
     public ResultVo findAll(){
         return ResultVoUtil.success(commoditySpecsService.findAll());

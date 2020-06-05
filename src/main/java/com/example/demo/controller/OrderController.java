@@ -18,6 +18,12 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService service;
+
+    /**
+     * 从购物车到数据并创建订单
+     * @param request
+     * @return
+     */
     @GetMapping("/save")
     public ResultVo save(HttpServletRequest request){
         List<CommodityInfo> cart = (List<CommodityInfo>)request.getSession().getAttribute("cart");
@@ -33,6 +39,10 @@ public class OrderController {
         return ResultVoUtil.success(order);
     }
 
+    /**
+     * 改变订单的支付状态
+     * @param request
+     */
     @GetMapping("/status")
     public void status(HttpServletRequest request){
         int orderId = Integer.parseInt(request.getParameter("orderId")) ;

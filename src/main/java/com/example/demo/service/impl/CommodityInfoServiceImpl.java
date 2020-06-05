@@ -55,5 +55,10 @@ public class CommodityInfoServiceImpl implements CommodityInfoService {
         return repository.findById(Integer.parseInt(cid)).get();
     }
 
+    @Override
+    public List<CommodityInfo> findByCommodityNameLike(String name) {
+        return repository.findByCommodityNameLike(name);
+    }
+
 
 }

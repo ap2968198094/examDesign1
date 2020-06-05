@@ -25,5 +25,13 @@ class CommodityInfoRepositoryTest {
         System.out.println(String.valueOf(s));
 
     }
+    @Test
+    void ll(){
+        List<CommodityInfo> list = repository.findByCommodityNameLike("%on%");
+        for (CommodityInfo comm : list) {
+            System.out.println(comm);
+        }
+    }
+
 
 }

@@ -4,6 +4,10 @@ import com.example.demo.entity.CommodityInfo;
 import lombok.Data;
 
 import java.util.List;
+
+/**
+ * 封装分页结果集
+ */
 @Data
 public class PageVo {
     private int totalCount;//总记录数

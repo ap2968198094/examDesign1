@@ -16,4 +16,6 @@ public interface CommodityInfoRepository extends JpaRepository<CommodityInfo,Int
     @Query(nativeQuery = true,value = "select * from commodity_info where commodity_category = ?")
     public List<CommodityInfo> findAllById(int categoryId);
 
+    public List<CommodityInfo> findByCommodityNameLike(String name);
+
 }

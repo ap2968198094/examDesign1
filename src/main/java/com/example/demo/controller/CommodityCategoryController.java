@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CommodityCategoryController {
     @Autowired
     private CommodityCategoryService service;
+
+    /**
+     * 查找所有分类
+     * @return
+     */
     @GetMapping("/findAll")
     public ResultVo findAll(){
         return ResultVoUtil.success(service.findAll());

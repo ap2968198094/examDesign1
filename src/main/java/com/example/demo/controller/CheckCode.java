@@ -16,7 +16,13 @@ import java.util.Random;
 @Controller
 @RequestMapping("/checkCode")
 public class CheckCode {
-
+    /**
+     * 获取验证码
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @GetMapping("/get")
     public void getCheckCode(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 

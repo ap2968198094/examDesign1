@@ -8,11 +8,9 @@ import com.example.demo.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,11 +24,21 @@ public class CommodityInfoController {
     @Autowired
     private CommodityInfoService service;
 
+    /**
+     * 查找所有商品信息
+     * @return
+     */
     @GetMapping("/findAll")
     public ResultVo findAll(){
         return ResultVoUtil.success(service.findAll());
     }
 
+    /**
+     * 查找分页结果集
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/findPages")
     public ResultVo findCommodityInfoPages(HttpServletRequest request, HttpServletResponse response){
         String currentPageStr = request.getParameter("currentPage");
@@ -51,12 +59,22 @@ public class CommodityInfoController {
         return ResultVoUtil.success(pageVo);
     }
 
+    /**
+     * 根据商品id查找商品
+     * @param request
+     * @return
+     */
     @GetMapping("/findOne")
     public ResultVo findOne(HttpServletRequest request){
         String rid = request.getParameter("rid");
         return ResultVoUtil.success(service.findById(rid));
     }
 
+    /**
+     * 加入购物车
+     * @param request
+     * @return
+     */
     @GetMapping("/addCart")
     public ResultVo addCart(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -74,9 +92,21 @@ public class CommodityInfoController {
 
     }
 
+    /**
+     * 返回购物车集合
+     * @param request
+     * @return
+     */
     @GetMapping("/findCart")
     public ResultVo findCart(HttpServletRequest request){
         List<CommodityInfo> cart = (List<CommodityInfo>)request.getSession().getAttribute("cart");
         return ResultVoUtil.success(cart);
+    }
+
+    @GetMapping("/search")
+    public ResultVo search(HttpServletRequest request){
+        String name = request.getParameter("name");
+        List<CommodityInfo> list = service.findByCommodityNameLike("%" + name + "%");
+        return ResultVoUtil.success(list);
     }
 }

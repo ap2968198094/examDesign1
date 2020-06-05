@@ -69,8 +69,16 @@
                 </div>
                 <div class="search">
                     <input name="" type="text" placeholder="请输入商品名称" class="search_input" autocomplete="off">
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <a class="search-button">搜索</a>
                 </div>
+                <script>
+                    $(function () {
+                        $(".search-button").click(function () {
+                            location.href = "find.html?name="+$(".search_input").val();
+                        });
+                    })
+
+                </script>
                 <div class="hottel">
                     <div class="hot_pic">
                         <img src="images/hot_tel.jpg" alt="">
