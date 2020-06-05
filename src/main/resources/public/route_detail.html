@@ -20,8 +20,7 @@
         <div class="bread_box">
             <a href="/">首页</a>
             <span> &gt;</span>
-            <a href="#">国内游</a><span> &gt;</span>
-            <a href="#">全国-曼谷6-7天自由行 泰国出境旅游 特价往返机票自由行二次确认</a>
+            <a href="javascript:location.reload();" class="detail_title">全国-曼谷6-7天自由行 泰国出境旅游 特价往返机票自由行二次确认</a>
         </div>
         <div class="prosum_box">
             <dl class="prosum_left">
@@ -224,6 +223,7 @@
             $("#rname").html(route.data.commodityName);
             $("#routeIntroduce").html(route.data.commodityDescription);
             $("#price").html("¥"+route.data.commodityPrice);
+            $(".detail_title").html(route.data.commodityName);
             // $("#sname").html(route.seller.sname);
             // $("#consphone").html(route.seller.consphone);
             // $("#address").html(route.seller.address);

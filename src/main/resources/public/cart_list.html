@@ -11,6 +11,23 @@
     <script src="js/jquery-3.3.1.js"></script>
 
     <script>
+        function pay() {
+            $.get("user/findOne",{},function (user) {
+                if(user.data != null){
+                    //用户登录了
+                    //添加功能
+                    $.get("order/save",{},function (data) {
+                        //代码刷新页面
+                        location.href = "pay.html?orderId="+data.data.orderId;
+                    });
+                }else{
+                    //用户没有登录
+                    alert("您尚未登录，请登录");
+                    location.href="http://localhost:8181/login.html";
+                }
+            });
+
+        }
 
         $(function () {
             // var search = location.search;
@@ -348,26 +365,11 @@
                         </div>
                     </li>
                 </ul>
-                <div class="page_num_inf">
-                    <i></i> 共
-                    <span id="totalPage">12</span>页<span id="totalCount">132</span>条
-                </div>
                 <div class="pageNum">
                     <ul id="pageNum">
-                        <li class="threeword"><a href="">结算</a></li>
-                        <li class="threeword"><a href="#">上一页</a></li>
-                        <li class="curPage"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="threeword"><a href="javascript:;">下一页</a></li>
-                        <li class="threeword"><a href="javascript:;">末页</a></li>
+                        <li class="threeword"><a onclick="pay()">结算</a></li>
+                        <li class="threeword"><p>共100元</p></li>
+
                     </ul>
                 </div>
             </div>
