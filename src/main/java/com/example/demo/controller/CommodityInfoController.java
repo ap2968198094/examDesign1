@@ -109,4 +109,22 @@ public class CommodityInfoController {
         List<CommodityInfo> list = service.findByCommodityNameLike("%" + name + "%");
         return ResultVoUtil.success(list);
     }
+
+    @GetMapping("/findPage")
+    public ResultVo findCommodityInfoPage(HttpServletRequest request, HttpServletResponse response){
+        String page = request.getParameter("page");
+        String limit = request.getParameter("limit");
+
+        PageVo pageVo = service.findCommodityInfoPage(page,limit);
+        return ResultVoUtil.success(pageVo);
+    }
+
+    @GetMapping("/findPageCategory")
+    public ResultVo findCommodityInfoPageCategory(HttpServletRequest request, HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        int cid = Integer.parseInt(request.getParameter("cid"));
+        PageVo pageVo = service.findCommodityInfoPageCategory(page,limit,cid);
+        return ResultVoUtil.success(pageVo);
+    }
 }

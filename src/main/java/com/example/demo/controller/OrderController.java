@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.CommodityInfo;
 import com.example.demo.entity.CommodityOrder;
+import com.example.demo.service.CommodityInfoService;
 import com.example.demo.service.OrderService;
 import com.example.demo.util.ResultVoUtil;
 import com.example.demo.vo.ResultVo;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -18,6 +20,8 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService service;
+    @Autowired
+    private CommodityInfoService commodityInfoService;
 
     /**
      * 从购物车到数据并创建订单
@@ -35,6 +39,8 @@ public class OrderController {
         CommodityOrder order = new CommodityOrder();
         order.setOrderPrice(String.valueOf(s));
         service.save(order);
+        HttpSession session = request.getSession();
+        session.setAttribute("cartEnd",session.getAttribute("cart"));
         request.getSession().removeAttribute("cart");
         return ResultVoUtil.success(order);
     }
@@ -46,6 +52,11 @@ public class OrderController {
     @GetMapping("/status")
     public void status(HttpServletRequest request){
         int orderId = Integer.parseInt(request.getParameter("orderId")) ;
+        List<CommodityInfo> list = (List<CommodityInfo>)request.getSession().getAttribute("cartEnd");
+        for (CommodityInfo commodityInfo : list) {
+            commodityInfo.setCommodityStock(commodityInfo.getCommodityStock()-1);
+            commodityInfoService.save(commodityInfo);
+        }
         CommodityOrder order = service.findById(orderId);
         order.setOrderStatus("Y");
         service.save(order);

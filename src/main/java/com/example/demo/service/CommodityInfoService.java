@@ -14,5 +14,11 @@ public interface CommodityInfoService {
     public CommodityInfo findById(String cid);
 
     public List<CommodityInfo> findByCommodityNameLike(String name);
+
+    PageVo findCommodityInfoPage(String page, String limit);
+
+    PageVo findCommodityInfoPageCategory(int page, int limit, int cid);
+
+    public void save(CommodityInfo commodityInfo);
 }
 

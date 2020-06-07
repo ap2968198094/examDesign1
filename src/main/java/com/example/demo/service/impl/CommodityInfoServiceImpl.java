@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 @Service
 public class CommodityInfoServiceImpl implements CommodityInfoService {
 
@@ -52,12 +54,58 @@ public class CommodityInfoServiceImpl implements CommodityInfoService {
 
     @Override
     public CommodityInfo findById(String cid) {
-        return repository.findById(Integer.parseInt(cid)).get();
+        return repository.findById(parseInt(cid)).get();
     }
 
     @Override
     public List<CommodityInfo> findByCommodityNameLike(String name) {
         return repository.findByCommodityNameLike(name);
+    }
+
+    @Override
+    public PageVo findCommodityInfoPage(String page, String limit) {
+        PageVo pageVo = new PageVo();
+        pageVo.setCurrentPage(parseInt(page));
+        pageVo.setPageSize(parseInt(limit));
+        int totolCount = (int)repository.count();
+        pageVo.setTotalCount(totolCount);
+        int flag = Integer.parseInt(page);
+        List<CommodityInfo> list = repository.findCommodityInfoPages((flag-1)*10,flag*10);
+
+        pageVo.setList(list);
+
+        return pageVo;
+    }
+
+    @Override
+    public PageVo findCommodityInfoPageCategory(int page, int limit, int cid) {
+        PageVo pageVo = new PageVo();
+        pageVo.setCurrentPage(page);
+        pageVo.setPageSize(limit);
+        int totolCount = (int)repository.findCountById(cid);
+        pageVo.setTotalCount(totolCount);
+        List<CommodityInfo> list = repository.findAllById(cid);
+        List<CommodityInfo> li = new ArrayList<>();
+        if (page*limit > totolCount){
+            for (int i = (page-1)*limit; i < totolCount; i++) {
+                li.add(list.get(i));
+            }
+            pageVo.setList(li);
+        }else {
+            for (int i = (page-1)*limit; i < page*limit; i++) {
+                li.add(list.get(i));
+            }
+            pageVo.setList(li);
+        }
+
+        pageVo.setList(list);
+
+        return pageVo;
+    }
+
+    @Override
+    public void save(CommodityInfo commodityInfo) {
+        repository.save(commodityInfo);
     }
 
 
