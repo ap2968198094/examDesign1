@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item">
+                <a href="javascript:;">控制台</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">商品管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">用户</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">邮件管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">消息管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">授权管理</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img"> 贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">基本资料</a>
+                    </dd>
+                    <dd>
+                        <a href="">安全设置</a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">退了</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:location.href='backstage_home.html';">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <script>
+                            function phone() {
+                                location.href = "backstage_phone.html";
+                            }
+                            function snack() {
+                                location.href = "backstage_snack.html";
+                            }
+                            function live() {
+                                location.href = "backstage_live.html";
+                            }
+                            function skincare() {
+                                location.href = "backstage_skincare.html";
+                            }
+                            function cosmetic() {
+                                location.href = "backstage_cosmetic.html";
+                            }
+                        </script>
+                        <dd>
+                            <a href="javascript:phone();">手机列表</a>
+
+                        </dd>
+                        <dd>
+                            <a href="javascript:snack();">零食列表</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:live();">家居列表</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:skincare();">护肤列表</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:cosmetic();">化妆品列表</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;">列表一</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;">列表二</a>
+                        </dd>
+                        <dd>
+                            <a href="">超链接</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">云市场</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">发布商品</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="layui-body" >
+        <!-- 内容主体区域 -->
+
+        <table id="test" lay-filter="test"></table>
+        <style type="text/css">
+            .layui-table-cell{
+                text-align:center;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                flex-direction: column;
+                height: 70px;
+                white-space: normal;
+            }
+        </style>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script type="text/html" id="barDemo1">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="barDemo2">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="username">
+    <p style="color: deepskyblue">{{d.commodityName}}</p>
+</script>
+<script src="layui/layui.all.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function() {
+        var element = layui.element;
+
+    });
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#test'
+            ,height: 600
+            ,url: 'commodityInfo/findPageCategory?cid=3' //数据接口
+            ,limit:10
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.data.totalCount, //解析数据长度
+                    "data": res.data.list,//解析数据列表
+                };
+            }
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'commodityId', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'commodityName', title: '商品名', width:120,templet:"#username"}
+                ,{field: 'commodityPrice', title: '商品价格', width:100, sort: true}
+                ,{field: 'commodityDescription', title: '商品描述', width:500}
+                ,{field: 'commodityStock', title: '商品库存', width: 80}
+                ,{field: 'commodityIcon', title: '商品图片', width: 150, sort: true,templet:'<div><img src="{{ d.commodityIcon }}" /></div>'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo1', width:70}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo2', width:70}
+            ]]
+        });
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            $.get("commodityInfo/findOne",{rid:data.commodityId},function (da) {
+                alert(da.data.commodityName)
+            });
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    alert(data.commodityName);
+                    alert(index);
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.prompt({
+                    formType: 2
+                    ,value: data.email
+                }, function(value, index){
+                    obj.update({
+                        email: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+
+    });
+</script>
+
+
+</body>
+
+</html>
