@@ -43,7 +43,7 @@ public interface CommodityInfoService {
     PageVo findCommodityInfoPage(String page, String limit);
 
     /**
-     * 根据当前页和limit以及商品类别封装PageBean
+     * 根据当前页和limit以及商品类别封装PageBean.
      * @param page
      * @param limit
      * @param cid
