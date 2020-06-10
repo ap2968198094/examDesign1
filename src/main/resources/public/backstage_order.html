@@ -13,6 +13,7 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">商城后台管理</div>
+
     </div>
 
     <div class="layui-side layui-bg-black">
@@ -68,18 +69,18 @@
     <div class="layui-body" >
         <!-- 内容主体区域 -->
 
-        <table id="test" lay-filter="test"></table>
-        <style type="text/css">
-            .layui-table-cell{
-                text-align:center;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                flex-direction: column;
-                height: 70px;
-                white-space: normal;
-            }
-        </style>
+            <table id="test" lay-filter="test"></table>
+            <style type="text/css">
+                .layui-table-cell{
+                    text-align:center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    flex-direction: column;
+                    height: 70px;
+                    white-space: normal;
+                }
+            </style>
 
     </div>
 
@@ -93,9 +94,6 @@
 </script>
 <script type="text/html" id="barDemo2">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-<script type="text/html" id="username">
-    <p style="color: deepskyblue">{{d.commodityName}}</p>
 </script>
 <script src="layui/layui.all.js"></script>
 <script>
@@ -112,34 +110,29 @@
         table.render({
             elem: '#test'
             ,height: 600
-            ,url: 'commodityInfo/findPageCategory?cid=5' //数据接口
+            ,url: 'order/findAll' //数据接口
             ,limit:10
             ,parseData: function(res){ //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.msg, //解析提示文本
-                    "count": res.data.totalCount, //解析数据长度
-                    "data": res.data.list,//解析数据列表
+                    "count": res.data.length, //解析数据长度
+                    "data": res.data,//解析数据列表
                 };
             }
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'commodityId', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'commodityName', title: '商品名', width:120,templet:"#username"}
-                ,{field: 'commodityPrice', title: '商品价格', width:100, sort: true}
-                ,{field: 'commodityDescription', title: '商品描述', width:500}
-                ,{field: 'commodityStock', title: '商品库存', width: 80}
-                ,{field: 'commodityIcon', title: '商品图片', width: 150, sort: true,templet:'<div><img src="{{ d.commodityIcon }}" /></div>'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo1', width:70}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo2', width:70}
+                {field: 'orderId', title: '订单编号', width:150, sort: true, fixed: 'left'}
+                ,{field: 'orderPrice', title: '订单价格', width:200}
+                ,{field: 'orderStatus', title: '订单状态', width:200, sort: true}
+                ,{field: 'userId', title: '订单用户id', width:500}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo1', width:100}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo2', width:100}
             ]]
         });
         table.on('tool(test)', function(obj){
             var data = obj.data;
             //console.log(obj)
-            $.get("commodityInfo/findOne",{rid:data.commodityId},function (da) {
-                alert(da.data.commodityName)
-            });
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     alert(data.commodityName);

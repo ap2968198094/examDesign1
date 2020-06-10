@@ -15,4 +15,5 @@ public class CommodityOrder {
     private Integer orderId;
     private String orderPrice;
     private String orderStatus = "N";
+    private Integer userId;
 }

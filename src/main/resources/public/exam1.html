@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            if($("#agreement").is(':checked') == false){
+                $("#but").attr("disabled","disabled");
+            }
+
+        })
+        function boxClick(){
+            if($("#agreement").is(':checked') == false){
+                $("#but").attr("disabled","disabled");
+            } else {
+                $("#but").attr("disabled",false);
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+<form >
+    <input type="checkbox" name="agreement" id="agreement" onclick="javascript:boxClick();">
+    我已zhi阅读并同意<a>论坛注册协议</a>
+    </input><input name="submit" type="submit" id="but" value="立即注册">
+</form>
+</body>
+</html>

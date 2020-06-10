@@ -70,10 +70,20 @@ public class CommodityInfoServiceImpl implements CommodityInfoService {
         int totolCount = (int)repository.count();
         pageVo.setTotalCount(totolCount);
         int flag = Integer.parseInt(page);
-        List<CommodityInfo> list = repository.findCommodityInfoPages((flag-1)*10,flag*10);
-
-        pageVo.setList(list);
-
+        int size = Integer.parseInt(limit);
+        List<CommodityInfo> list = repository.findAll();
+        List<CommodityInfo> li = new ArrayList<>();
+        if (flag*size > totolCount){
+            for (int i = (flag-1)*size; i < totolCount; i++) {
+                li.add(list.get(i));
+            }
+            pageVo.setList(li);
+        }else {
+            for (int i = (flag-1)*size; i < flag*size; i++) {
+                li.add(list.get(i));
+            }
+            pageVo.setList(li);
+        }
         return pageVo;
     }
 

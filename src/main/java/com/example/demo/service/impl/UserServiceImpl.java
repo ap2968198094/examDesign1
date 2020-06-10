@@ -2,16 +2,19 @@ package com.example.demo.service.impl;
 
 
 import com.example.demo.entity.User;
+import com.example.demo.enums.UserEnum;
+import com.example.demo.exception.UserException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import com.example.demo.util.MailUtils;
 import com.example.demo.util.UuidUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -68,6 +71,8 @@ public class UserServiceImpl implements UserService {
                             user.getUsername()
                             ,user.getPassword());
             if (user1 == null || user1.getStatus().equals("N")){
+                log.error(UserEnum.USER_NOT_EXIST.getMsg()+"user1={}",user1);
+
                 return false;
             }
         } catch (Exception e) {

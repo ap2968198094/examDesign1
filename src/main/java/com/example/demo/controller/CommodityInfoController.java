@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,12 +101,20 @@ public class CommodityInfoController {
     @GetMapping("/findCart")
     public ResultVo findCart(HttpServletRequest request){
         List<CommodityInfo> cart = (List<CommodityInfo>)request.getSession().getAttribute("cart");
-        return ResultVoUtil.success(cart);
+        Double s = 0.00;
+        for (CommodityInfo commodityInfo : cart) {
+            s +=Double.parseDouble(commodityInfo.getCommodityPrice());
+            System.out.println(Double.parseDouble(commodityInfo.getCommodityPrice()));
+        }
+        ResultVo resultVo = new ResultVo();
+        resultVo.setCode(0);
+        resultVo.setMsg(String.valueOf(s));
+        resultVo.setData(cart);
+        return resultVo;
     }
 
     @GetMapping("/search")
-    public ResultVo search(HttpServletRequest request){
-        String name = request.getParameter("name");
+    public ResultVo search(@RequestParam("name") String name){
         List<CommodityInfo> list = service.findByCommodityNameLike("%" + name + "%");
         return ResultVoUtil.success(list);
     }

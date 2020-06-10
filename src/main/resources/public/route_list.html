@@ -135,8 +135,8 @@
                     //拼接字符串
                     lis += li;
                 }*/
-                var lastPage = '<li class="threeword"><a href="javascript:void(0);">末页</a></li>';
-                var nextPage = '<li class="threeword"><a href="javascript:;">下一页</a></li>';
+                var lastPage = '<li class="threeword" onclick="javascipt:load('+cid+','+pb.data.totalPage+')"><a href="javascript:void(0)"><a href="javascript:;">末页</a></li>';
+                var nextPage = '<li class="threeword" onclick="javascipt:load('+cid+','+(pb.data.currentPage+1)+')"><a href="javascript:void(0)"><a href="javascript:;">下一页</a></li>';
 
                 lis += nextPage;
                 lis += lastPage;

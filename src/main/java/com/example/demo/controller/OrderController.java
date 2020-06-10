@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.CommodityInfo;
 import com.example.demo.entity.CommodityOrder;
+import com.example.demo.entity.User;
 import com.example.demo.service.CommodityInfoService;
 import com.example.demo.service.OrderService;
 import com.example.demo.util.ResultVoUtil;
@@ -38,6 +39,7 @@ public class OrderController {
         }
         CommodityOrder order = new CommodityOrder();
         order.setOrderPrice(String.valueOf(s));
+        order.setUserId(((User)request.getSession().getAttribute("user")).getUid());
         service.save(order);
         HttpSession session = request.getSession();
         session.setAttribute("cartEnd",session.getAttribute("cart"));
@@ -60,6 +62,11 @@ public class OrderController {
         CommodityOrder order = service.findById(orderId);
         order.setOrderStatus("Y");
         service.save(order);
+    }
+
+    @GetMapping("/findAll")
+    public ResultVo findAll(){
+        return ResultVoUtil.success(service.findAll());
     }
 
 
