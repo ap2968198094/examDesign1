@@ -161,6 +161,21 @@
 
        //1.获取rid
        var rid = getParameter("rid");
+
+        $.get("favorite/isAdd",{rid:rid},function (data) {
+            if(data.data){
+                // 用户已经收藏过
+                //<a  class="btn already" disabled="disabled">
+                //设置收藏按钮的样式
+                $("#favorite").addClass("already");
+                $("#favorite").attr("disabled","disabled");
+
+                //删除按钮的点击事件
+                $("#favorite").removeAttr("onclick");
+            }else{
+                // 用户没有收藏
+            }
+        });
        
        //2.发送请求请求 route/findOne
         $.get("commodityInfo/findOne",{rid:rid},function (route) {
@@ -209,6 +224,7 @@
                 //添加功能
                 $.get("favorite/save",{rid:rid},function () {
                     alert("收藏成功");
+                    location.reload();
                 });
             }else{
                 //用户没有登录

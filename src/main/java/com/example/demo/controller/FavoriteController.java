@@ -60,4 +60,21 @@ public class FavoriteController {
         }
         return ResultVoUtil.success(li);
     }
+
+    /**
+     * 查找是否添加到收藏
+     * @return
+     */
+    @GetMapping("/isAdd")
+    public ResultVo isAdd(HttpServletRequest request){
+        int commodityId = Integer.parseInt(request.getParameter("rid"));
+        int userId = ((User) request.getSession().getAttribute("user")).getUid();
+        List<Favorite> list = service.findAllById(userId);
+        for (Favorite favorite : list) {
+            if (favorite.getCommodityId()==commodityId){
+                return ResultVoUtil.success(true);
+            }
+        }
+        return ResultVoUtil.success(false);
+    }
 }
