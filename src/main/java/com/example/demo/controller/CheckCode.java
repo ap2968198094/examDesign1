@@ -13,6 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * @author 雍知晓
+ */
 @Controller
 @RequestMapping("/checkCode")
 public class CheckCode {

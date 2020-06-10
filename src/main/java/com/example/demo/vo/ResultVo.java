@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 封装返回结果
+ * @author 雍知晓
  * @param <T>
  */
 @Data

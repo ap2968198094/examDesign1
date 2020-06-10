@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author 雍知晓
+ */
 @Controller
 @ResponseBody
 @RequestMapping("/order")
@@ -64,6 +67,10 @@ public class OrderController {
         service.save(order);
     }
 
+    /**
+     * 后台查找所有订单信息
+     * @return
+     */
     @GetMapping("/findAll")
     public ResultVo findAll(){
         return ResultVoUtil.success(service.findAll());

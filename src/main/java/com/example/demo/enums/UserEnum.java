@@ -2,6 +2,10 @@ package com.example.demo.enums;
 
 import lombok.Getter;
 
+/**
+ * @author 雍知晓
+ */
+
 @Getter
 public enum UserEnum {
     USER_NOT_EXIST(0,"该用户不存在"),

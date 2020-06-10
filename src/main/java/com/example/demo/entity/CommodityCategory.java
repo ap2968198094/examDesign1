@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author 商品分类
+ */
 @Data
 @Entity
 public class CommodityCategory {

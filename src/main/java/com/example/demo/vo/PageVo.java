@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 封装分页结果集
+ * @author 雍知晓
  */
 @Data
 public class PageVo {

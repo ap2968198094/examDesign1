@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author 雍知晓 用户信息
+ */
 @Data
 @Entity
 public class User {

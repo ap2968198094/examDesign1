@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author 雍知晓 商品订单
+ */
 @Data
 @Entity
 public class CommodityOrder {

@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 雍知晓
+ */
 @ResponseBody
 @Controller
 @RequestMapping("/favorite")
@@ -28,6 +31,10 @@ public class FavoriteController {
     @Autowired
     private CommodityInfoRepository repository;
 
+    /**
+     * 添加收藏
+     * @param request
+     */
     @GetMapping("/save")
     public void save(HttpServletRequest request){
         int commodityId = Integer.parseInt(request.getParameter("rid"));
@@ -38,6 +45,11 @@ public class FavoriteController {
         service.save(f);
     }
 
+    /**
+     * 根据id查找收藏夹
+     * @param request
+     * @return
+     */
     @GetMapping("/findAll")
     public ResultVo findAll(HttpServletRequest request){
         int id = ((User) request.getSession().getAttribute("user")).getUid();

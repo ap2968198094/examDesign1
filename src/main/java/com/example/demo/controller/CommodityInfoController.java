@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 雍知晓
+ */
 @Controller
 @ResponseBody
 @RequestMapping("/commodityInfo")
@@ -113,12 +116,23 @@ public class CommodityInfoController {
         return resultVo;
     }
 
+    /**
+     * 根据名字模糊查询
+     * @param name
+     * @return
+     */
     @GetMapping("/search")
     public ResultVo search(@RequestParam("name") String name){
         List<CommodityInfo> list = service.findByCommodityNameLike("%" + name + "%");
         return ResultVoUtil.success(list);
     }
 
+    /**
+     * 后台查找所有商品信息并分页
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/findPage")
     public ResultVo findCommodityInfoPage(HttpServletRequest request, HttpServletResponse response){
         String page = request.getParameter("page");
@@ -128,6 +142,12 @@ public class CommodityInfoController {
         return ResultVoUtil.success(pageVo);
     }
 
+    /**
+     * 后台根据分类查找商品并分类
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/findPageCategory")
     public ResultVo findCommodityInfoPageCategory(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));

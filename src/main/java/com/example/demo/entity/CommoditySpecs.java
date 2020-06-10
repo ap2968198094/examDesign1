@@ -8,15 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
+/**
+ * @author 雍知晓 商品规格
+ */
 @Data
 @Entity
 public class CommoditySpecs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer specsId;//规格id
-    private Integer commodityId;//商品id
-    private String specsName;//规格名称
-    private Integer specsStock;//剩余库存
-    private String specsPrice;//规格价格
-    private String specsIcon;//规格图片
+    private Integer specsId;
+    private Integer commodityId;
+    private String specsName;
+    private Integer specsStock;
+    private String specsPrice;
+    private String specsIcon;
 }
