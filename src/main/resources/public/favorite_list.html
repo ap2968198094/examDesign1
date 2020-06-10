@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>黑马旅游-搜索</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/search.css">
+    <script src="js/jquery-3.3.1.js"></script>
+
+    <script>
+
+        $(function () {
+            load();
+        });
+        function load(){
+            //发送ajax请求，请求route/pageQuery,传递cid
+            $.get("favorite/findAll",{},function (pb) {
+                //2.列表数据展示
+                var route_lis = "";
+                for (var i = 0; i < pb.data.length; i++) {
+                    //获取{rid:1,rname:"xxx"}
+                    var route = pb.data[i];
+
+                    var li = '<li>\n' +
+                        '                        <div class="img"><img src="'+route.commodityIcon+'" style="width: 299px;"></div>\n' +
+                        '                        <div class="text1">\n' +
+                        '                            <p>'+route.commodityName+'</p>\n' +
+                        '                            <br/>\n' +
+                        '                            <p>'+route.commodityDescription+'</p>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="price">\n' +
+                        '                            <p class="price_num">\n' +
+                        '                                <span>&yen;</span>\n' +
+                        '                                <span>'+route.commodityPrice+'</span>\n' +
+                        '                                <span>起</span>\n' +
+                        '                            </p>\n' +
+                        '                            <p><a href="route_detail.html?rid='+route.commodityId+'">查看详情</a></p>\n' +
+                        '                        </div>\n' +
+                        '                    </li>';
+                    route_lis += li;
+                }
+                $("#route").html(route_lis);
+
+                //定位到页面顶部
+                window.scrollTo(0,0);
+            });
+
+        }
+
+
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="page_one">
+    <div class="contant">
+        <div class="crumbs">
+            <img src="images/search.png" alt="">
+            <p>购物商城><span>搜索结果</span></p>
+        </div>
+        <div class="xinxi clearfix">
+            <div class="left">
+                <div class="header">
+                    <span>商品信息</span>
+                    <span class="jg">价格</span>
+                </div>
+                <ul id="route">
+                </ul>
+                <div class="pageNum">
+                    <ul id="pageNum">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="hot">HOT</div>
+                    <span>热门推荐</span>
+                </div>
+                <ul>
+                    <li>
+                        <div class="left"><img src="image/phone1.jpg" alt=""></div>
+                        <div class="right">
+                            <p>Honor 8A</p>
+                            <p>网付价<span>&yen;<span>1800</span>起</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="image/phone2.jpg" alt=""></div>
+                        <div class="right">
+                            <p>Honor 9i</p>
+                            <p>网付价<span>&yen;<span>2800</span>起</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="image/Honor20.png" alt=""></div>
+                        <div class="right">
+                            <p>Honor 20</p>
+                            <p>网付价<span>&yen;<span>2299</span>起</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="image/iPhone8Plus.jpg" alt=""></div>
+                        <div class="right">
+                            <p>iPhone 8Plus</p>
+                            <p>网付价<span>&yen;<span>1850</span>起</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="image/iPhone11.png" alt=""></div>
+                        <div class="right">
+                            <p>iPhone 11</p>
+                            <p>网付价<span>&yen;<span>3200</span>起</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--引入头部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+
+</html>

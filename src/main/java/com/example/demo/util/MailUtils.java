@@ -6,59 +6,59 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
- * å‘é‚®ä»¶å·¥å…·ç±»
+ * ·¢ÓÊ¼ş¹¤¾ßÀà
  */
 public final class MailUtils {
-    private static final String USER = "2968198094@qq.com"; // å‘ä»¶äººç§°å·ï¼ŒåŒé‚®ç®±åœ°å€
-    private static final String PASSWORD = "tilngefatupydddb"; // å¦‚æœæ˜¯qqé‚®ç®±å¯ä»¥ä½¿æˆ·ç«¯æˆæƒç ï¼Œæˆ–è€…ç™»å½•å¯†ç 
+    private static final String USER = "2968198094@qq.com"; // ·¢¼şÈË³ÆºÅ£¬Í¬ÓÊÏäµØÖ·
+    private static final String PASSWORD = "tilngefatupydddb"; // Èç¹ûÊÇqqÓÊÏä¿ÉÒÔÊ¹»§¶ËÊÚÈ¨Âë£¬»òÕßµÇÂ¼ÃÜÂë
 
     /**
      *
-     * @param to æ”¶ä»¶äººé‚®ç®±
-     * @param text é‚®ä»¶æ­£æ–‡
-     * @param title æ ‡é¢˜
+     * @param to ÊÕ¼şÈËÓÊÏä
+     * @param text ÓÊ¼şÕıÎÄ
+     * @param title ±êÌâ
      */
-    /* å‘é€éªŒè¯ä¿¡æ¯çš„é‚®ä»¶ */
+    /* ·¢ËÍÑéÖ¤ĞÅÏ¢µÄÓÊ¼ş */
     public static boolean sendMail(String to, String text, String title){
         try {
             final Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.host", "smtp.qq.com");
 
-            // å‘ä»¶äººçš„è´¦å·
+            // ·¢¼şÈËµÄÕËºÅ
             props.put("mail.user", USER);
-            //å‘ä»¶äººçš„å¯†ç 
+            //·¢¼şÈËµÄÃÜÂë
             props.put("mail.password", PASSWORD);
 
-            // æ„å»ºæˆæƒä¿¡æ¯ï¼Œç”¨äºè¿›è¡ŒSMTPè¿›è¡Œèº«ä»½éªŒè¯
+            // ¹¹½¨ÊÚÈ¨ĞÅÏ¢£¬ÓÃÓÚ½øĞĞSMTP½øĞĞÉí·İÑéÖ¤
             Authenticator authenticator = new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    // ç”¨æˆ·åã€å¯†ç 
+                    // ÓÃ»§Ãû¡¢ÃÜÂë
                     String userName = props.getProperty("mail.user");
                     String password = props.getProperty("mail.password");
                     return new PasswordAuthentication(userName, password);
                 }
             };
-            // ä½¿ç”¨ç¯å¢ƒå±æ€§å’Œæˆæƒä¿¡æ¯ï¼Œåˆ›å»ºé‚®ä»¶ä¼šè¯
+            // Ê¹ÓÃ»·¾³ÊôĞÔºÍÊÚÈ¨ĞÅÏ¢£¬´´½¨ÓÊ¼ş»á»°
             Session mailSession = Session.getInstance(props, authenticator);
-            // åˆ›å»ºé‚®ä»¶æ¶ˆæ¯
+            // ´´½¨ÓÊ¼şÏûÏ¢
             MimeMessage message = new MimeMessage(mailSession);
-            // è®¾ç½®å‘ä»¶äºº
+            // ÉèÖÃ·¢¼şÈË
             String username = props.getProperty("mail.user");
             InternetAddress form = new InternetAddress(username);
             message.setFrom(form);
 
-            // è®¾ç½®æ”¶ä»¶äºº
+            // ÉèÖÃÊÕ¼şÈË
             InternetAddress toAddress = new InternetAddress(to);
             message.setRecipient(Message.RecipientType.TO, toAddress);
 
-            // è®¾ç½®é‚®ä»¶æ ‡é¢˜
+            // ÉèÖÃÓÊ¼ş±êÌâ
             message.setSubject(title);
 
-            // è®¾ç½®é‚®ä»¶çš„å†…å®¹ä½“
+            // ÉèÖÃÓÊ¼şµÄÄÚÈİÌå
             message.setContent(text, "text/html;charset=GBK");
-            // å‘é€é‚®ä»¶
+            // ·¢ËÍÓÊ¼ş
             Transport.send(message);
             return true;
         }catch (Exception e){
@@ -67,9 +67,9 @@ public final class MailUtils {
         return false;
     }
 
-    public static void main(String[] args) throws Exception { // åšæµ‹è¯•ç”¨
-        String content = "<p>ç‚¹å‡»æ¿€æ´»ã€é»‘é©¬æ—…æ¸¸ç½‘ã€‘,è¯·å¤åˆ¶é“¾æ¥åˆ°æµè§ˆå™¨æ‰“å¼€http://localhost/travel/activeUserServlet?code=c9d05b52efcf4238bf4be301916379b0</p>";
-        MailUtils.sendMail("2968198094@qq.com",content,"æ¿€æ´»é‚®ä»¶");
+    public static void main(String[] args) throws Exception { // ×ö²âÊÔÓÃ
+        String content = "<p>µã»÷¼¤»î¡¾ºÚÂíÂÃÓÎÍø¡¿,Çë¸´ÖÆÁ´½Óµ½ä¯ÀÀÆ÷´ò¿ªhttp://localhost/travel/activeUserServlet?code=c9d05b52efcf4238bf4be301916379b0</p>";
+        MailUtils.sendMail("2968198094@qq.com",content,"¼¤»îÓÊ¼ş");
     }
 
 

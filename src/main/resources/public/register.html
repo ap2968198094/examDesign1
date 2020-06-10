@@ -65,9 +65,11 @@
 			$(function () {
 				//当表单提交时，调用所有的校验方法
 				$("#registerForm").submit(function () {
+
 					//1 .发送数据到服务器
 					if (checkUsername() && checkPassword() && checkEmail()) {
 						//校验通过，发送ajax请求，提交表单的数据
+						alert("确定后请稍等几秒钟，正在发送邮件......");
 						$.post("../user/regist",$(this).serialize(),function(data) {
 							//处理服务器响应的数据  data  {flag:false;errorMsg:注册失败}
 							if (data.code == 0){

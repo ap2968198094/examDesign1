@@ -34,27 +34,33 @@ public class UserController {
     @PostMapping("/regist")
     public ResultVo registe(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
-        //1.获取数据
+
         HttpSession session = request.getSession();
-        System.out.println(session.getAttribute("CHECKCODE_SERVER"));
+        String checkcode_server = (String)session.getAttribute("CHECKCODE_SERVER");
+        String check = request.getParameter("check");
+        if (check.equalsIgnoreCase(checkcode_server)){
+            //1.获取数据
+            Map<String, String[]> map = request.getParameterMap();
+            //2.封装对象
+            User user = new User();
+            try {
+                BeanUtils.populate(user,map);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            Boolean flag = userService.regist(user);
+            if (flag){
 
-        Map<String, String[]> map = request.getParameterMap();
-        System.out.println(request.getParameter("check"));
+                return ResultVoUtil.success(null);
+            }
+            return ResultVoUtil.error("用户名已存在");
+        } else {
+            return ResultVoUtil.error("验证码错误");
+        }
 
-        //2.封装对象
-        User user = new User();
-        try {
-            BeanUtils.populate(user,map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        Boolean flag = userService.regist(user);
-        if (flag){
-            return ResultVoUtil.success(null);
-        }
-        return ResultVoUtil.error("注册失败");
+
 
     }
 
@@ -67,25 +73,31 @@ public class UserController {
     @PostMapping("/login")
     public ResultVo login(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
-        //1.获取数据
-        Map<String, String[]> map = request.getParameterMap();
-
-        //2.封装对象
-        User user = new User();
-        try {
-            BeanUtils.populate(user,map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        HttpSession session = request.getSession();
+        String checkcode_server = (String)session.getAttribute("CHECKCODE_SERVER");
+        String check = request.getParameter("check");
+        if (check.equalsIgnoreCase(checkcode_server)){
+            //1.获取数据
+            Map<String, String[]> map = request.getParameterMap();
+            //2.封装对象
+            User user = new User();
+            try {
+                BeanUtils.populate(user,map);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            Boolean flag = userService.login(user);
+            if (flag){
+                request.getSession().setAttribute("user",userService.findByUsername(user.getUsername()));
+                System.out.println("登录成功");
+                return ResultVoUtil.success(null);
+            }
+            return ResultVoUtil.error("用户名或密码错误");
+        } else {
+            return ResultVoUtil.error("验证码错误");
         }
-        Boolean flag = userService.login(user);
-        if (flag){
-            request.getSession().setAttribute("user",userService.findByUsername(user.getUsername()));
-            System.out.println("登录成功");
-            return ResultVoUtil.success(null);
-        }
-        return ResultVoUtil.error("登录失败");
 
     }
 

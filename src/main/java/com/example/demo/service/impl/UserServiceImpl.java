@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         User user1 = userRepository.findByUsername(user.getUsername());
         if (user1 != null){
             //用户名存在，注册失败
+            log.error(UserEnum.USERNAME_EXIT.getMsg()+"user={}",user);
             return false;
         }
         //2.保存用户信息
@@ -34,7 +35,6 @@ public class UserServiceImpl implements UserService {
         //2.2设置激活状态
         user.setStatus("N");
         userRepository.save(user);
-
         //激活邮件发送，邮件正文
         String content = "<p>点击激活【黑马旅游网】,请复制链接到浏览器打开http://localhost:8181/user/active/"+user.getCode()+"</p>";
         MailUtils.sendMail(user.getEmail(),content,"激活邮件");
@@ -55,9 +55,11 @@ public class UserServiceImpl implements UserService {
     public Boolean active(String code) {
         User user = userRepository.findByCode(code);
         if (user == null){
+            log.error(UserEnum.USER_NOT_EXIST.getMsg()+"user={}",user);
             return false;
         }
         user.setStatus("Y");
+        log.info(UserEnum.USER_ACTIVE_SUCCESS.getMsg()+"user={}",user);
         userRepository.save(user);
         return true;
     }
@@ -80,5 +82,6 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
 
 }
