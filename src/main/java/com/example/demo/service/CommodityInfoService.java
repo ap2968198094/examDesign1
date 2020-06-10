@@ -13,7 +13,7 @@ public interface CommodityInfoService {
     public List<CommodityInfo> findAll();
 
     /**
-     * 根据分类id和当前页码封装pageBean对象
+     * 根据分类id和当前页码封装pageBean对象.
      * @param categoryId
      * @param currentPage
      * @return
