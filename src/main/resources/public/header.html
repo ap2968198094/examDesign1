@@ -65,7 +65,18 @@
         <div class="header_wrap">
             <div class="topbar">
                 <div class="logo">
-                    <a href="http://www.labu2020.cn"><img src="image/logo.jpg" alt=""></a>
+                    <a href="backstage_home.html"><img src="image/logo.jpg" alt=""></a>
+                    <script>
+                        function admin() {
+                            $.get("user/admin",{},function (data) {
+                                if (data){
+                                    location.href = "backstage_home.html";
+                                } else {
+                                    alert("您尚未登录，或您没有管理员权限。");
+                                }
+                            });
+                        }
+                    </script>
                 </div>
                 <div class="search">
                     <input name="" type="text" placeholder="请输入商品名称" class="search_input" autocomplete="off">

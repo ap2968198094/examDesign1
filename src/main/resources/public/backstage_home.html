@@ -2,12 +2,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>table模块快速使用</title>
+    <title>商城后台</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
     <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            $.get("user/admin",{},function (data) {
+                if (data){
+
+                } else {
+                    alert("您尚未登录，或您没有管理员权限");
+                    location.href = "index.html";
+                }
+            });
+        })
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">

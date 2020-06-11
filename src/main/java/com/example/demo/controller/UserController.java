@@ -149,5 +149,18 @@ public class UserController {
         return ResultVoUtil.success(null);
     }
 
+    @GetMapping("/admin")
+    public Boolean admin(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null){
+            return false;
+        }
+        if (user.getUsername().equals("zhangsan") && user.getPassword().equals("12345678")){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
 }
