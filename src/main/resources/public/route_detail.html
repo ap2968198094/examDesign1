@@ -184,12 +184,6 @@
             $("#routeIntroduce").html(route.data.commodityDescription);
             $("#price").html("¥"+route.data.commodityPrice);
             $(".detail_title").html(route.data.commodityName);
-            // $("#sname").html(route.seller.sname);
-            // $("#consphone").html(route.seller.consphone);
-            // $("#address").html(route.seller.address);
-            // //设置收藏次数
-            // $("#favoriteCount").html("已收藏"+route.count+"次");
-
 
             //图片展示
             $("#big_img").html('<img src="'+route.data.commodityIcon+'">');
@@ -201,9 +195,6 @@
                     astr = '<a title="" class="little_img" data-bigpic="'+route.data.commodityIcon+'">\n' +
                         '                        <img src="'+route.data.commodityIcon+'">\n' +
                         '                    </a>';
-
-
-
                 ddstr += astr;
             }
             ddstr+='<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>';

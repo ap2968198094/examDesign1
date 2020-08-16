@@ -17,7 +17,6 @@
             //alert(search);//?id=5
             // 切割字符串，拿到第二个值
             var cid = search.split("=")[1];
-
             //当页码加载完成后，调用load方法，发送ajax请求加载数据
             load(cid);
         });
@@ -31,29 +30,9 @@
                 //1.1 展示总页码和总记录数
                 $("#totalPage").html(pb.data.totalPage);
                 $("#totalCount").html(pb.data.totalCount);
-
-                /*
-                        <li><a href="">首页</a></li>
-                        <li class="threeword"><a href="#">上一页</a></li>
-                        <li class="curPage"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="threeword"><a href="javascript:;">下一页</a></li>
-                        <li class="threeword"><a href="javascript:;">末页</a></li>
-
-
-                 */
                 var lis = "";
 
                 var fristPage = '<li onclick="javascipt:load('+cid+')"><a href="javascript:void(0)">首页</a></li>';
-
                 //计算上一页的页码
                 var beforeNum =  pb.data.currentPage - 1;
                 if(beforeNum <= 0){
